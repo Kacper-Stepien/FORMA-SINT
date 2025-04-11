@@ -1,0 +1,52 @@
+:root {
+  --font-family-base: "Inter", sans-serif;
+
+  --color-primary-dark: "#1D1D1D";
+  --color-primary: "#EAEAE8";
+  --color-primary-light: "#FFFFFF";
+
+  --color-label-bestseller: "#D9D6B0";
+  --color-label-limited: "#D4B0D9";
+
+  --font-size-body-desktop: 16px;
+  --font-size-body-large-desktop: 20px;
+  --font-size-heading-desktop: 42px;
+
+  --font-weight-body: 400;
+  --font-weight-body-large: 500;
+  --font-weight-heading: 700;
+
+  --font-size-body-mobile: 16px;
+  --font-size-body-large-mobile: 18px;
+  --font-size-heading-mobile: 32px;
+
+  --line-height-body: 1.4;
+  --line-height-body-large: 1.2;
+  --line-height-heading: 1.2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-desktop);
+  font-weight: var(--font-weight-body);
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-light);
+  line-height: var(--line-height-body);
+}
+
+.body-large {
+  font-size: var(--font-size-body-large-desktop);
+  font-weight: var(--font-weight-body-large);
+}
+
+.heading {
+  font-size: var(--font-size-heading-desktop);
+  font-weight: var(--font-weight-heading);
+  line-height: var(--line-height-heading);
+}
