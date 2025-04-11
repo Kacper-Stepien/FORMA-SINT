@@ -31,6 +31,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-body-desktop);
@@ -38,6 +42,7 @@ body {
   color: var(--color-primary-dark);
   background-color: var(--color-primary-light);
   line-height: var(--line-height-body);
+  padding: 0 4.2rem;
 }
 
 .body-large {
@@ -49,4 +54,63 @@ body {
   font-size: var(--font-size-heading-desktop);
   font-weight: var(--font-weight-heading);
   line-height: var(--line-height-heading);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  justify-content: space-between;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 4.2rem;
+}
+
+.logo {
+  max-width: 91.8rem;
+  width: 100%;
+  height: auto;
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 0.8rem;
+  aspect-ratio: 3/1;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0 2.4rem;
+  }
+
+  .hero {
+    gap: 3.2rem;
+  }
+
+  .hero-image {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 0 1.6rem;
+  }
+
+  .hero {
+    gap: 2.4rem;
+  }
+
+  .hero-image {
+    aspect-ratio: 2 / 3;
+  }
+
+  .heading {
+    font-size: var(--font-size-heading-mobile);
+  }
 }
