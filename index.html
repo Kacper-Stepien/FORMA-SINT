@@ -3,21 +3,113 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FORMA'SINT.</title>
+    <title>FORMA'SINT. - Kacper Stępień</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <header></header>
+    <!-- HEADER SECTION -------------------------------------------------------------- -->
+    <header class="navbar" role="banner">
+      <div class="navbar__section navbar__section--left">
+        <a href="#hero" class="logo" aria-label="Go to Hero section">
+          <img
+            src="assets/icons/FORMA.svg"
+            alt="Forma’Sint. logo outline"
+            class="logo-img logo-img--outline"
+          />
+          <img
+            src="assets/icons/FORMA_FILL.svg"
+            alt="Forma’Sint. logo filled"
+            class="logo-img logo-img--fill"
+          />
+        </a>
+
+        <span class="navbar__brand">FORMA’SINT.</span>
+
+        <span class="navbar__idomods" aria-label="IDOMODS custom branding">
+          IDOMODS <span aria-hidden="true">&lt;/&gt;</span>
+        </span>
+      </div>
+
+      <nav
+        class="navbar__section navbar__section--center"
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <a href="#hero" class="navbar__link">Home</a>
+        <a href="#featured-products" class="navbar__link">Featured Products</a>
+        <a href="#product-grid" class="navbar__link">Product Listing</a>
+      </nav>
+
+      <div class="navbar__section navbar__section--right">
+        <img
+          src="assets/icons/USER.svg"
+          alt="User icon"
+          class="navbar__user-icon"
+        />
+        <span class="navbar__role">Frontend Developer</span>
+      </div>
+
+      <!-- MOBILE MENU --------------------------------------------------------------- -->
+      <button
+        class="navbar__toggle"
+        id="menuToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <img src="assets/icons/HAMBURGER_MENU.svg" alt="Menu icon" />
+        <span class="navbar__toggle-text">MENU</span>
+      </button>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu__header">
+          <a href="#hero" class="logo" aria-label="Scroll to Hero section">
+            <img
+              src="assets/icons/FORMA.svg"
+              alt="Logo outline"
+              class="logo-img logo-img--outline"
+            />
+            <img
+              src="assets/icons/FORMA_FILL.svg"
+              alt="Logo filled"
+              class="logo-img logo-img--fill"
+            />
+          </a>
+          <button
+            class="mobile-menu__close"
+            id="menuClose"
+            aria-label="Close menu"
+          >
+            <img src="assets/icons/CLOSE.svg" alt="Close icon" />
+            <span>CLOSE</span>
+          </button>
+        </div>
+
+        <nav class="mobile-menu__nav">
+          <a href="#hero" class="navbar__link">HOME</a>
+          <a href="#featured-products" class="navbar__link"
+            >FEATURED PRODUCTS</a
+          >
+          <a href="#product-grid" class="navbar__link">PRODUCT LISTING</a>
+        </nav>
+      </div>
+      <div class="overlay" id="menuOverlay"></div>
+      <!-- --------------------------------------------------------------------------- -->
+    </header>
+    <!-- ----------------------------------------------------------------------------- -->
+
     <main class="main-content">
-      <section class="hero" aria-labelledby="hero-heading">
-        <img src="assets/images/LOGO.svg" alt="Forma'Sint." class="logo" />
+      <!-- HERO SECTION -------------------------------------------------------------- -->
+      <section class="hero" id="hero" aria-labelledby="hero-heading">
+        <img src="assets/images/LOGO.svg" alt="Forma'Sint." class="hero-logo" />
         <img
           src="assets/images/HERO.png"
           alt="Climber in ice canyon"
           class="hero-image"
         />
       </section>
+      <!-- --------------------------------------------------------------------------- -->
       <section class="featured-products"></section>
       <section class="product-grid"></section>
     </main>
