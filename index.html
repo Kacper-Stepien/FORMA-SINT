@@ -151,7 +151,57 @@
       </section>
       <!-- --------------------------------------------------------------------------- -->
 
-      <section class="product-grid"></section>
+      <!-- PRODUCTS SECTION-------------------------------------------------------------- -->
+      <section
+        class="product-grid"
+        id="product-grid"
+        aria-label="Product Listing"
+      >
+        <div class="product-grid__header">
+          <p class="dropdown__label">NUMBER OF PRODUCTS PER PAGE</p>
+          <div class="dropdown" id="dropdown">
+            <button
+              class="dropdown__toggle"
+              id="dropdownToggle"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+            >
+              <span id="dropdownSelected">14</span>
+              <img
+                src="assets/icons/EXPAND.svg"
+                alt="Expand icon"
+                class="dropdown__icon"
+              />
+            </button>
+            <ul class="dropdown__list hidden" role="listbox" id="dropdownList">
+              <li class="dropdown__item selected" data-value="14">14</li>
+              <li class="dropdown__item" data-value="24">24</li>
+              <li class="dropdown__item" data-value="36">36</li>
+            </ul>
+          </div>
+        </div>
+        <div class="product-grid__container" id="productGridContainer">
+          <!-- Karty produktów będą dodawane dynamicznie -->
+        </div>
+      </section>
     </main>
+    <div class="overlay" id="productOverlay"></div>
+
+    <div class="product-popup" id="productPopup">
+      <div class="product-popup__header">
+        <p class="product-popup__id" id="popupProductId">ID: 01</p>
+        <button
+          class="product-popup__close"
+          id="popupClose"
+          aria-label="Close popup"
+        >
+          <img src="assets/icons/CLOSE.svg" alt="Close" />
+          <span>CLOSE</span>
+        </button>
+      </div>
+      <div class="product-popup__content">
+        <img src="" alt="" id="popupProductImage" />
+      </div>
+    </div>
   </body>
 </html>

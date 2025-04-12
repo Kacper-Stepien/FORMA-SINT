@@ -111,8 +111,6 @@ function getRandomPrice() {
 }
 
 function createProductCard({ image, title, price, badgeType }) {
-  console.log("Creating product card...");
-  console.log({ image, title, price, badgeType });
   const badgeText =
     badgeType === "bestseller"
       ? "BESTSELLER"
@@ -157,3 +155,164 @@ swiper.on("reachEnd", async () => {
   currentPage++;
   await loadProducts(currentPage);
 });
+
+// GRID SECTION ////////////////////////////////////////////////////////////////////////////////////
+const dropdownToggle = document.getElementById("dropdownToggle");
+const dropdownList = document.getElementById("dropdownList");
+const dropdownSelected = document.getElementById("dropdownSelected");
+const dropdownItems = document.querySelectorAll(".dropdown__item");
+const dropdown = document.getElementById("dropdown");
+
+function createProductGridCard(product) {
+  const card = document.createElement("div");
+  card.classList.add("product-grid__card");
+  card.innerHTML = `
+      <span class="product-grid__id">ID: ${String(product.id).padStart(
+        2,
+        "0"
+      )}</span>
+      <img src="${product.image}" alt="Product ${
+    product.id
+  }" class="product-grid__image"/>
+    `;
+  return card;
+}
+
+dropdownToggle.addEventListener("click", () => {
+  const expanded = dropdownToggle.getAttribute("aria-expanded") === "true";
+  dropdownToggle.setAttribute("aria-expanded", String(!expanded));
+  dropdownList.classList.toggle("hidden");
+});
+
+dropdownItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    dropdownSelected.textContent = item.textContent;
+
+    dropdownItems.forEach((el) => el.classList.remove("selected"));
+    item.classList.add("selected");
+
+    dropdownToggle.setAttribute("aria-expanded", "false");
+    dropdownList.classList.add("hidden");
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (!dropdown.contains(e.target)) {
+    dropdownList.classList.add("hidden");
+    dropdownToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+///////Banner ///////////////////////////////////////////////////////////////////////////////////////
+let currentGridPage = 1;
+let currentGridPageSize = 14;
+let isLoading = false;
+let totalGridPages = Infinity;
+let bannerInserted = false;
+
+const gridContainer = document.getElementById("productGridContainer");
+const selectBtn = document.querySelector(".dropdown__toggle");
+const options = document.querySelectorAll(".dropdown__item");
+
+async function fetchAndAppendProducts(page, pageSize) {
+  if (isLoading || page > totalGridPages) return;
+  isLoading = true;
+
+  try {
+    const res = await fetch(
+      `https://brandstestowy.smallhost.pl/api/random?pageNumber=${page}&pageSize=${pageSize}`
+    );
+    const data = await res.json();
+    totalGridPages = data.totalPages;
+
+    data.data.forEach((product, index) => {
+      if (!bannerInserted && index === 5) {
+        const banner = createBanner();
+        gridContainer.appendChild(banner);
+        bannerInserted = true;
+      }
+
+      const card = createProductGridCard(product);
+      card.addEventListener("click", () =>
+        openProductPopup({ id: product.id, image: product.image })
+      );
+
+      gridContainer.appendChild(card);
+    });
+
+    currentGridPage++;
+  } catch (err) {
+    console.error("Error loading products:", err);
+  } finally {
+    isLoading = false;
+  }
+}
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  const fullHeight = document.documentElement.scrollHeight;
+
+  if (scrollY + viewportHeight >= fullHeight * 0.95) {
+    fetchAndAppendProducts(currentGridPage, currentGridPageSize);
+  }
+});
+
+options.forEach((option) => {
+  option.addEventListener("click", () => {
+    const value = Number(option.textContent);
+    if (value !== currentGridPageSize) {
+      currentGridPageSize = value;
+      currentGridPage = 1;
+      totalGridPages = Infinity;
+    }
+
+    selectBtn.querySelector("span").textContent = value;
+    document.querySelector(".dropdown__list").classList.add("hidden");
+    selectBtn.setAttribute("aria-expanded", "false");
+  });
+});
+
+function createBanner() {
+  const banner = document.createElement("div");
+  banner.classList.add("banner");
+  banner.innerHTML = `
+    <div class="banner__content">
+    <div class="banner__content-header>
+    <p class="banner__label">FORMA’SINT.</p>
+    <h2 class="banner__text heading">You’ll look and feel like the champion.</h2>
+    </div>
+    <button class="btn banner__btn">
+        Check this out
+        <img src="assets/icons/ARROW2.svg" alt="" class="banner__icon" />
+    </button>
+    </div>
+    `;
+  return banner;
+}
+
+fetchAndAppendProducts(currentGridPage, currentGridPageSize);
+
+// POPUP /////////////////////////////////////////////////////////////////////////////////////////
+
+const overlay = document.getElementById("productOverlay");
+const popup = document.getElementById("productPopup");
+const popupImage = document.getElementById("popupProductImage");
+const popupId = document.getElementById("popupProductId");
+const popupClose = document.getElementById("popupClose");
+
+function openProductPopup({ id, image }) {
+  popupImage.src = image;
+  popupImage.alt = `Product ${id}`;
+  popupId.textContent = `ID: ${id}`;
+  overlay.classList.add("is-visible");
+  popup.classList.add("is-visible");
+}
+
+function closeProductPopup() {
+  overlay.classList.remove("is-visible");
+  popup.classList.remove("is-visible");
+}
+
+overlay.addEventListener("click", closeProductPopup);
+popupClose.addEventListener("click", closeProductPopup);
