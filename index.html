@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FORMA'SINT. - Kacper Stępień</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
@@ -110,7 +116,41 @@
         />
       </section>
       <!-- --------------------------------------------------------------------------- -->
-      <section class="featured-products"></section>
+
+      <!-- FEATURED PRODUCTS SECTION -------------------------------------------------------------- -->
+      <section
+        class="featured"
+        id="featured-products"
+        aria-label="Featured Products"
+      >
+        <div class="featured__header">
+          <p class="featured__subtitle">Featured Products</p>
+          <h2 class="heading featured__title">Browse featured</h2>
+        </div>
+
+        <div class="swiper featured__swiper">
+          <div class="swiper-wrapper" id="swiper-wrapper">
+            <!-- Karty produktów będą dodawane dynamicznie -->
+          </div>
+
+          <button
+            class="swiper-button swiper-button-prev"
+            aria-label="Previous slide"
+          >
+            <img src="assets/icons/ARROW.svg" alt="" />
+          </button>
+
+          <button
+            class="swiper-button swiper-button-next"
+            aria-label="Next slide"
+          >
+            <img src="assets/icons/ARROW.svg" alt="" />
+          </button>
+          <div class="swiper-scrollbar"></div>
+        </div>
+      </section>
+      <!-- --------------------------------------------------------------------------- -->
+
       <section class="product-grid"></section>
     </main>
   </body>
