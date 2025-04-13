@@ -3,7 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FORMA'SINT. - Kacper Stępień</title>
+    <title>FORMA’SINT. | Stylish Outdoor Gear</title>
+    <meta
+      name="description"
+      content="Discover featured and trending outdoor gear from FORMA’SINT. Designed by Kacper Stępień."
+    />
+    <meta property="og:title" content="FORMA’SINT." />
+    <meta
+      property="og:description"
+      content="Stylish outdoor gear by Kacper Stępień"
+    />
+    <meta property="og:image" content="assets/images/HERO.png" />
+    <meta property="og:type" content="website" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -11,7 +22,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module" defer></script>
   </head>
   <body>
     <!-- HEADER SECTION -------------------------------------------------------------- -->
@@ -107,7 +118,7 @@
 
     <main class="main-content">
       <!-- HERO SECTION -------------------------------------------------------------- -->
-      <section class="hero" id="hero" aria-labelledby="hero-heading">
+      <section class="hero" id="hero" aria-label="Hero section">
         <img src="assets/images/LOGO.svg" alt="Forma'Sint." class="hero-logo" />
         <img
           src="assets/images/HERO.png"
@@ -128,6 +139,10 @@
           <h2 class="heading featured__title">Browse featured</h2>
         </div>
 
+        <span class="loader loader_hidden" id="product-featured__loader"></span>
+        <p class="error error_hidden" id="product-featured__error">
+          Failed to load featured products. Please try again later.
+        </p>
         <div class="swiper featured__swiper">
           <div class="swiper-wrapper" id="swiper-wrapper">
             <!-- Karty produktów będą dodawane dynamicznie -->
@@ -137,14 +152,14 @@
             class="swiper-button swiper-button-prev"
             aria-label="Previous slide"
           >
-            <img src="assets/icons/ARROW.svg" alt="" />
+            <img src="assets/icons/ARROW.svg" aria-hidden="true" />
           </button>
 
           <button
             class="swiper-button swiper-button-next"
             aria-label="Next slide"
           >
-            <img src="assets/icons/ARROW.svg" alt="" />
+            <img src="assets/icons/ARROW.svg" aria-hidden="true" />
           </button>
           <div class="swiper-scrollbar"></div>
         </div>
@@ -164,6 +179,7 @@
               class="dropdown__toggle"
               id="dropdownToggle"
               aria-haspopup="listbox"
+              aria-controls="dropdownList"
               aria-expanded="false"
             >
               <span id="dropdownSelected">14</span>
@@ -174,20 +190,32 @@
               />
             </button>
             <ul class="dropdown__list hidden" role="listbox" id="dropdownList">
-              <li class="dropdown__item selected" data-value="14">14</li>
-              <li class="dropdown__item" data-value="24">24</li>
-              <li class="dropdown__item" data-value="36">36</li>
+              <li role="option" class="dropdown__item selected" data-value="14">
+                14
+              </li>
+              <li role="option" class="dropdown__item" data-value="24">24</li>
+              <li role="option" class="dropdown__item" data-value="36">36</li>
             </ul>
           </div>
         </div>
         <div class="product-grid__container" id="productGridContainer">
           <!-- Karty produktów będą dodawane dynamicznie -->
         </div>
+        <span class="loader" id="product-grid__loader"></span>
+        <p class="error error_hidden" id="product-grid__error">
+          Something went wrong. Please try again.
+        </p>
       </section>
     </main>
     <div class="overlay" id="productOverlay"></div>
 
-    <div class="product-popup" id="productPopup">
+    <!-- PRODUCTC POPUP -------------------------------------------------------------- -->
+    <div
+      class="product-popup"
+      id="productPopup"
+      role="dialog"
+      aria-modal="true"
+    >
       <div class="product-popup__header">
         <p class="product-popup__id" id="popupProductId">ID: 01</p>
         <button
