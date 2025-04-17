@@ -5,31 +5,36 @@ import { openProductPopup } from "./product-popup.js";
 import Loader from "./Loader.js";
 
 export default function initGrid() {
-  let currentPage = 1;
+  let page = 1;
   let pageSize = 14;
   let totalPages = Infinity;
   let bannerInserted = false;
+  const loadedProductIds = new Set();
 
   const gridContainer = document.getElementById("productGridContainer");
   const loader = new Loader("product-grid__loader", "product-grid__error");
 
   async function loadAndAppendProducts() {
-    if (loader.isLoading() || currentPage > totalPages) return;
+    if (loader.isLoading() || page > totalPages) return;
 
     loader.showLoader();
 
     try {
-      const {
-        data,
-        totalPages: apiTotalPages,
-        currentPage: apiCurrentPage,
-      } = await fetchProducts(currentPage, pageSize);
+      const { data, totalPages: fetchedTotalPages } = await fetchProducts(
+        page,
+        pageSize
+      );
 
-      console.log("Fetched products:", data);
-      totalPages = apiTotalPages;
-      currentPage = apiCurrentPage;
+      // console.log("Fetched products:", data);
+      // console.log("Total pages:", fetchedTotalPages);
+      // console.log("Current page:", page);
+
+      totalPages = fetchedTotalPages;
 
       data.forEach((product, index) => {
+        if (loadedProductIds.has(product.id)) return;
+        loadedProductIds.add(product.id);
+
         if (!bannerInserted && index === 5) {
           const banner = createBanner(
             "FORMA’SINT.",
@@ -47,8 +52,9 @@ export default function initGrid() {
         );
         gridContainer.appendChild(card);
       });
+
+      page++;
       loader.hideError();
-      currentPage++;
     } catch (err) {
       console.error("Error loading products:", err);
       loader.showError("Failed to load products. Please try again later.");
@@ -70,12 +76,17 @@ export default function initGrid() {
   });
 
   return {
-    setPageSize: (value) => {
-      if (!Number.isInteger(value) || value <= 0) return;
-      if (value !== pageSize) {
-        pageSize = value;
-        currentPage = 1;
+    setPageSize: (newSize) => {
+      if (!Number.isInteger(newSize) || newSize <= 0) return;
+
+      if (newSize !== pageSize) {
+        const estimatedTotalLoaded = (page - 1) * pageSize;
+
+        pageSize = newSize;
+        page = Math.floor(estimatedTotalLoaded / pageSize) + 1;
         totalPages = Infinity;
+
+        loadAndAppendProducts();
       }
     },
   };

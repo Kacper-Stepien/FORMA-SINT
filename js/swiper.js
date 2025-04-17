@@ -13,7 +13,7 @@ export default function initSwiper() {
   );
 
   const swiper = new Swiper(".featured__swiper", {
-    slidesPerView: 1,
+    slidesPerView: 1.2,
     spaceBetween: 24,
     breakpoints: {
       768: { slidesPerView: 2.5 },
